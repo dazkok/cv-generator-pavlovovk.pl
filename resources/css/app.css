@@ -1,135 +1,85 @@
 @import 'tailwindcss';
-
 @import "tw-animate-css";
-
-@source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+@theme static {
+    /* Нейтральні кольори */
+    --color-neutral-950: #090909;
+    --color-neutral-900: #141414;
+    --color-neutral-850: #222222;
+    --color-neutral-800: #2b2b2b;
+    --color-neutral-750: #373737;
+    --color-neutral-600: #595959;
+    --color-neutral-500: #6E6E6E;
+    --color-neutral-300: #9a9a98;
+    --color-neutral-200: #E9E9E9;
+    --color-neutral-150: #f4f4f4;
+    --color-neutral-100: #fafafa;
 
-    --radius-lg: var(--radius);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-sm: calc(var(--radius) - 4px);
+    /* Брендові кольори */
+    --color-brand-50: #f6eaea;   /* світлий мармур з винним підтоном */
+    --color-brand-100: #edd3d3;
+    --color-brand-200: #ddb1b1;
+    --color-brand-300: #c98a8a;
+    --color-brand-400: #b06262;
+    --color-brand-500: #8f3f3f;   /* чистий бордо */
+    --color-brand-600: #742f2f;
+    --color-brand-700: #5c2424;
+    --color-brand-800: #431a1a;
+    --color-brand-900: #2b1111;   /* майже чорний бордо */
+    --color-brand-950: #1a0909;   /* глибока тінь */
+    --color-brand-1000: #0e0505;   /* чорне вино */
+    /* Основні кольори для Tailwind */
+    --color-primary: var(--color-brand-600);
+    --color-secondary: var(--color-brand-300);
 
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
+    /* Фон та текст */
+    --color-background: var(--color-neutral-100);
+    --color-foreground: var(--color-neutral-950);
 
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
+    /* Границі та акценти */
+    --color-border: var(--color-neutral-200);
+    --color-ring: var(--color-brand-500);
 
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
+    /* Картки та поверхні */
+    --color-card: white;
+    --color-card-foreground: var(--color-neutral-950);
 
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
+    /* Вторинні елементи */
+    --color-muted: var(--color-neutral-150);
+    --color-muted-foreground: var(--color-neutral-600);
 
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
+    /* Акцентні кольори */
+    --color-accent: var(--color-brand-100);
+    --color-accent-foreground: var(--color-brand-900);
 
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
+    /* Радіуси */
+    --radius-sm: 0.25rem;
+    --radius: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
 
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-
-    --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
-
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
-
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
+    /* Шрифт */
+    --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
 
-:root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.87 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.87 0 0);
-}
-
+/* Темна тема */
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.145 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.145 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.396 0.141 25.723);
-    --destructive-foreground: oklch(0.637 0.237 25.331);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.439 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.985 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.269 0 0);
-    --sidebar-ring: oklch(0.439 0 0);
+    --color-background: var(--color-neutral-900);
+    --color-foreground: var(--color-neutral-100);
+
+    --color-border: var(--color-neutral-800);
+    --color-ring: var(--color-brand-600);
+
+    --color-card: var(--color-neutral-850);
+    --color-card-foreground: var(--color-neutral-100);
+
+    --color-muted: var(--color-neutral-800);
+    --color-muted-foreground: var(--color-neutral-300);
+
+    --color-accent: var(--color-neutral-800);
+    --color-accent-foreground: var(--color-neutral-100);
 }
 
 @layer base {
@@ -137,7 +87,59 @@
         @apply border-border;
     }
 
-    body {
-        @apply bg-background text-foreground;
+    html {
+        scroll-behavior: smooth;
     }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        @apply bg-background text-foreground antialiased;
+    }
+
+    * {
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+}
+
+@layer utilities {
+    .glass {
+        @apply backdrop-blur-sm bg-white/10 border border-white/20;
+    }
+
+    .glass-dark {
+        @apply backdrop-blur-sm bg-black/10 border border-white/10;
+    }
+
+    .fade-up {
+        opacity: 0;
+        transform: translateY(12px);
+        animation: fadeUp 0.6s ease-out forwards;
+    }
+
+    .fade-delay-1 {
+        animation-delay: 0.05s;
+    }
+
+    .fade-delay-2 {
+        animation-delay: 0.12s;
+    }
+
+    .fade-delay-3 {
+        animation-delay: 0.2s;
+    }
+
+    .fade-delay-4 {
+        animation-delay: 0.28s;
+    }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+p {
+    @apply text-base leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-prose;
 }

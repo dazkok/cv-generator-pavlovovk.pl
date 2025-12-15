@@ -2,15 +2,22 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+//use Illuminate\Foundation\Testing\RefreshDatabase;
+//use Tests\TestCase;
+
+use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
 
-    public function test_that_true_is_true()
+//    public function test_that_true_is_true()
+//    {
+//        $this->assertTrue(true);
+//    }
+
+    public function testTwoValuesAreTheSame(): void
     {
-        $this->assertTrue(true);
+        $this->assertSame(1, 1);
     }
 }

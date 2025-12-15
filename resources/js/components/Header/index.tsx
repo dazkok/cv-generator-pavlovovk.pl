@@ -1,0 +1,51 @@
+import ThemeToggle from './ThemeToggle';
+
+export default function Header() {
+    return (
+        <header className="sticky top-0 z-50 border-b border-neutral-200/60 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:border-neutral-800/60 dark:bg-neutral-900/70 supports-[backdrop-filter]:dark:bg-neutral-900/60">
+            <div className="mx-auto max-w-7xl px-4">
+                <div className="flex h-14 items-center justify-between">
+                    {/* Logo */}
+                    <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-primary/90" />
+                        <span className="text-sm font-semibold tracking-tight">
+                            Pavlo Vovk
+                        </span>
+                    </div>
+
+                    {/* Navigation */}
+                    <nav className="hidden items-center gap-8 md:flex">
+                        {['About', 'Portfolio', 'Skills', 'Contact'].map(
+                            (item) => (
+                                <a
+                                    key={item}
+                                    href={`/${item.toLowerCase()}`}
+                                    className="text-sm font-medium text-neutral-700 transition-opacity hover:opacity-70 dark:text-neutral-300"
+                                >
+                                    {item}
+                                </a>
+                            ),
+                        )}
+                    </nav>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-2">
+                        <ThemeToggle />
+
+                        {/* Mobile menu */}
+                        <button
+                            className="rounded-lg p-2 transition-colors hover:bg-neutral-200/60 md:hidden dark:hover:bg-neutral-800/60"
+                            aria-label="Open menu"
+                        >
+                            <div className="space-y-1">
+                                <span className="block h-0.5 w-5 bg-neutral-900 dark:bg-neutral-100" />
+                                <span className="block h-0.5 w-5 bg-neutral-900 dark:bg-neutral-100" />
+                                <span className="block h-0.5 w-3 bg-neutral-900 dark:bg-neutral-100" />
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+}
