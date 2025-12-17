@@ -113,7 +113,11 @@
     .fade-up {
         opacity: 0;
         transform: translateY(12px);
-        animation: fadeUp 0.6s ease-out forwards;
+        /*animation: fadeUp 0.6s ease-out forwards;*/
+    }
+
+    .fade-up.is-visible {
+        animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .fade-delay-1 {

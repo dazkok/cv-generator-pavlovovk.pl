@@ -1,16 +1,11 @@
+import React from 'react';
+
+import ContactSection from '@/components/Home/Contact/ContactSection';
 import HeroSection from '@/components/Home/Hero/HeroSection';
+import ProjectsSection from '@/components/Home/Projects/ProjectsSection';
+import SkillsSection from '@/components/Home/Skills/SkillsSection';
 import AppLayout from '@/layouts/AppLayout';
 import { Head } from '@inertiajs/react';
-
-// sections
-// import Hero from "@/sections/hero";
-// import Clients from "@/sections/clients";
-// import Skills from "@/sections/skills";
-// import Projects from "@/sections/projects";
-// import Resume from "@/sections/resume";
-// import Testimonial from "@/sections/testimonial";
-// import PopularClients from "@/sections/popular-clients";
-// import ContactForm from "@/sections/contact-form";
 
 export default function Home() {
     return (
@@ -18,10 +13,9 @@ export default function Home() {
             <Head title="Portfolio" />
 
             <HeroSection />
-
-            {/*<Clients />*/}
-            {/*<Skills />*/}
-            {/*<Projects />*/}
+            <ProjectsSection />
+            <SkillsSection />
+            <ContactSection />
             {/*<Resume />*/}
             {/*<Testimonial />*/}
             {/*<PopularClients />*/}

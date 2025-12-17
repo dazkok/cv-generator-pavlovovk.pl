@@ -19,7 +19,7 @@ export default function Header() {
                             (item) => (
                                 <a
                                     key={item}
-                                    href={`/${item.toLowerCase()}`}
+                                    href={`#${item.toLowerCase()}`}
                                     className="text-sm font-medium text-neutral-700 transition-opacity hover:opacity-70 dark:text-neutral-300"
                                 >
                                     {item}
