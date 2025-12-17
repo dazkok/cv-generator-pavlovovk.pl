@@ -107,14 +107,14 @@ const ContactSection: React.FC = () => {
                     style={{ transitionDelay: '0.25s' }}
                 >
                     <a
-                        href="mailto:pavlo@example.com"
+                        href="mailto:dazkok@gmail.com"
                         aria-label="Email"
                         className="transition hover:text-brand-500"
                     >
                         <MailIcon className="h-5 w-5" />
                     </a>
                     <a
-                        href="https://linkedin.com/in/yourprofile"
+                        href="https://www.linkedin.com/in/pavlo-vovk-37437824b/"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="LinkedIn"
@@ -123,7 +123,7 @@ const ContactSection: React.FC = () => {
                         <LinkedInIcon className="h-5 w-5" />
                     </a>
                     <a
-                        href="https://github.com/yourprofile"
+                        href="https://github.com/dazkok"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="GitHub"
@@ -132,7 +132,7 @@ const ContactSection: React.FC = () => {
                         <GithubIcon className="h-5 w-5" />
                     </a>
                     <a
-                        href="https://instagram.com/yourprofile"
+                        href="https://instagram.com/x_xxost"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Instagram"
