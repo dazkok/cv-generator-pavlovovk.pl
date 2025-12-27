@@ -76,7 +76,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Scroll down */}
-            <div className="opacity-40 transition hover:opacity-70">
+            <div className="opacity-40 transition hover:opacity-70 mt-5 lg:mt-10">
                 <a href="#portfolio">
                     <ArrowDown className={'h-6 w-6'} />
                 </a>

@@ -1,6 +1,10 @@
+import LanguageDropdown from '@/components/LanguageToggle';
+import { useI18n } from '@/hooks/useI18n';
 import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
+    const { t } = useI18n();
+
     return (
         <header className="sticky top-0 z-50 border-b border-neutral-200/60 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:border-neutral-800/60 dark:bg-neutral-900/70 supports-[backdrop-filter]:dark:bg-neutral-900/60">
             <div className="mx-auto max-w-7xl px-4">
@@ -15,14 +19,14 @@ export default function Header() {
 
                     {/* Navigation */}
                     <nav className="hidden items-center gap-8 md:flex">
-                        {['About', 'Portfolio', 'Skills', 'Contact'].map(
+                        {['about', 'portfolio', 'skills', 'contact'].map(
                             (item) => (
                                 <a
                                     key={item}
                                     href={`#${item.toLowerCase()}`}
                                     className="text-sm font-medium text-neutral-700 transition-opacity hover:opacity-70 dark:text-neutral-300"
                                 >
-                                    {item}
+                                    {t(`navigation.${item}`)}
                                 </a>
                             ),
                         )}
@@ -30,6 +34,7 @@ export default function Header() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-2">
+                        <LanguageDropdown />
                         <ThemeToggle />
 
                         {/* Mobile menu */}
