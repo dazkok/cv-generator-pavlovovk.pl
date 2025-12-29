@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'set-locale' => \App\Http\Middleware\SetLocale::class,
+            'basic.auth' => \App\Http\Middleware\BasicAuth::class,
         ]);
 
         $middleware->web(append: [

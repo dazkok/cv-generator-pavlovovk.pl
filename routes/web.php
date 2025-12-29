@@ -6,7 +6,7 @@ use Inertia\Inertia;
 Route::group([
     'prefix' => '{locale?}',
     'where' => ['locale' => 'uk|en|pl'],
-    'middleware' => 'set-locale'
+    'middleware' => ['basic.auth', 'set-locale'],
 ], function () {
     Route::get('/', function () {
         return Inertia::render('Home');
