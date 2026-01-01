@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
             'locale' => fn() => app()->getLocale(),
             'translations' => fn() => [
                 'navigation' => trans('navigation'),
+                'hero' => trans('hero-section'),
             ],
         ]);
     }

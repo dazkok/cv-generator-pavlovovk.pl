@@ -5,23 +5,13 @@ import StatItem from '@/components/Home/Hero/StatItem';
 import ServiceItem from '@/components/Layouts/Buttons/ServiceItem';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
+import { useI18n } from '@/hooks/useI18n';
 import React from 'react';
 
 const HeroSection: React.FC = () => {
-    const services = [
-        {
-            title: 'Web Development',
-            icon: <WorldIcon className="me-2 h-6 w-6 opacity-60" />,
-        },
-        {
-            title: 'Digital Marketing',
-            icon: <WorldIcon className="me-2 h-6 w-6 opacity-60" />,
-        },
-        {
-            title: 'Graphic Design',
-            icon: <WorldIcon className="me-2 h-6 w-6 opacity-60" />,
-        },
-    ];
+    const { t } = useI18n();
+
+    const services = ['full-stack', 'backend', 'frontend'];
 
     return (
         <Section className="flex min-h-[calc(100svh-3.5rem)] w-full items-center">
@@ -29,24 +19,26 @@ const HeroSection: React.FC = () => {
                 {/* Left content */}
                 <div className="space-y-6">
                     <span className="block text-sm font-medium text-neutral-500 dark:text-neutral-400">
-                        Pavlo Vovk
+                        {t('hero.subtitle')}
                     </span>
 
                     <Heading level="h1">
-                        Software developer <br /> based in Cracow
+                        <span
+                            dangerouslySetInnerHTML={{ __html: t('hero.title') }}
+                        />
                     </Heading>
                     <Heading level="subtitle" className="mt-4">
-                        Crafting modern web experiences with React, Tailwind,
-                        and passion.
+                        {t('hero.text')}
                     </Heading>
 
                     {/* Services */}
                     <ul className="space-y-3">
-                        {services.map((service, i) => (
+                        {services.map((key, i) => (
                             <ServiceItem
-                                key={service.title}
-                                icon={service.icon}
-                                title={service.title}
+                                key={key}
+                                icon={<WorldIcon className="me-2 h-6 w-6 opacity-60" />}
+                                title={t(`hero.services.${key}.title`)}
+                                // text={t(`hero.services.${key}.text`)}
                                 delay={0.05 + i * 0.1}
                             />
                         ))}
@@ -55,13 +47,13 @@ const HeroSection: React.FC = () => {
                     {/* Stats */}
                     <div className="flex gap-12 pt-6">
                         <StatItem
-                            number="5+"
-                            label="Years of Experience"
+                            number={t('hero.highlights.experience.number')}
+                            label={t('hero.highlights.experience.text')}
                             delay={0.2}
                         />
                         <StatItem
-                            number="3K+"
-                            label="Happy Customers"
+                            number={t('hero.highlights.users.number')}
+                            label={t('hero.highlights.users.text')}
                             delay={0.3}
                         />
                     </div>
@@ -76,7 +68,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Scroll down */}
-            <div className="opacity-40 transition hover:opacity-70 mt-5 lg:mt-10">
+            <div className="mt-5 opacity-40 transition hover:opacity-70 lg:mt-10">
                 <a href="#portfolio">
                     <ArrowDown className={'h-6 w-6'} />
                 </a>

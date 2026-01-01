@@ -1,16 +1,20 @@
 import { usePage } from '@inertiajs/react';
 
-type Translations = Record<string, Record<string, string>>;
-
 export function useI18n() {
-    const { translations } = usePage().props as unknown as {
-        translations: Translations;
-    };
+    const { translations } = usePage().props;
 
     const t = (key: string): string => {
-        const [group, value] = key.split('.');
+        const value = key
+            .split('.')
+            .reduce<unknown>(
+                (acc, part) =>
+                    acc && typeof acc === 'object'
+                        ? (acc as Record<string, unknown>)[part]
+                        : undefined,
+                translations,
+            );
 
-        return translations?.[group]?.[value] ?? key;
+        return typeof value === 'string' ? value : key;
     };
 
     return { t };
