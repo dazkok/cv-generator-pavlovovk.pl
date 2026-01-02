@@ -7,72 +7,81 @@ import TechCard from '@/components/Home/Skills/TechCard';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 import React from 'react';
+import { useI18n } from '@/hooks/useI18n';
 
 const coreStack = [
     {
-        name: 'PHP',
-        description: 'Backend logic, integrations, and business rules',
-        icon: <PhpIcon className={'h-6 w-6'} />,
+        key: 'php',
+        icon: PhpIcon,
     },
     {
-        name: 'Laravel',
-        description: 'Backend frameworks for scalable products',
-        icon: <LaravelIcon className={'h-6 w-6'} />,
+        key: 'laravel',
+        icon: LaravelIcon,
     },
     {
-        name: 'TypeScript',
-        description: 'Typed JavaScript for reliable frontend architecture',
-        icon: <TypeScriptIcon className={'h-6 w-6'} />,
+        key: 'typescript',
+        icon: TypeScriptIcon,
     },
     {
-        name: 'React',
-        description: 'Component-based UI for complex applications',
-        icon: <ReactIcon className={'h-6 w-6'} />,
+        key: 'react',
+        icon: ReactIcon,
     },
 ];
 
 const capabilities = [
     {
-        title: 'Backend & System Design',
-        description:
-            'Designing and maintaining backend systems, APIs, and integrations that scale with real products.',
+        key: 'backend-design',
     },
     {
-        title: 'Full-stack Delivery',
-        description:
-            'Owning features end-to-end — from backend logic to frontend implementation.',
+        key: 'fullstack-delivery',
     },
     {
-        title: 'UI Engineering',
-        description:
-            'Translating product requirements into clean, usable interfaces with attention to detail.',
+        key: 'ui-engineering',
     },
     {
-        title: 'Performance & Reliability',
-        description:
-            'Optimizing performance, stability, and long-term maintainability across the stack.',
+        key: 'performance-reliability',
     },
 ];
 
 const SkillsSection: React.FC = () => {
+    const { t } = useI18n();
+
     return (
         <Section id="skills">
-            <Heading level="h2">Skills</Heading>
+            <Heading level="h2">{t('skills.title')}</Heading>
             <Heading level="subtitle">
-                Full-stack development with a strong backend foundation.
+                {t('skills.subtitle')}
             </Heading>
 
-            {/* Core stack with visual anchor */}
-            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {coreStack.map((tech, i) => (
-                    <TechCard key={tech.name} tech={tech} index={i} />
-                ))}
+            {/* Core Stack */}
+            <div className="mt-8 lg:mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {coreStack.map((tech, i) => {
+                    const IconComponent = tech.icon;
+                    return (
+                        <TechCard
+                            key={tech.key}
+                            tech={{
+                                name: t(`skills.coreStack.${tech.key}.name`),
+                                description: t(`skills.coreStack.${tech.key}.description`),
+                                icon: <IconComponent className={'h-6 w-6'} />,
+                            }}
+                            index={i}
+                        />
+                    );
+                })}
             </div>
 
             {/* Capabilities */}
-            <div className="mt-24 grid gap-16 md:grid-cols-2">
+            <div className="mt-16 lg:mt-24 grid gap-8 lg:gap-16 md:grid-cols-2">
                 {capabilities.map((item, i) => (
-                    <CapabilityCard key={item.title} item={item} index={i} />
+                    <CapabilityCard
+                        key={item.key}
+                        item={{
+                            title: t(`skills.capabilities.${item.key}.title`),
+                            description: t(`skills.capabilities.${item.key}.description`),
+                        }}
+                        index={i}
+                    />
                 ))}
             </div>
         </Section>

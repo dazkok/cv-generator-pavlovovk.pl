@@ -4,7 +4,7 @@ import Section from '@/components/Layouts/Section';
 import { useI18n } from '@/hooks/useI18n';
 import React from 'react';
 
-const PROJECT_KEYS = ['suzuki_pl', 'suzuki_apps', 'onecatering'];
+const PROJECT_KEYS = ['suzuki_pl', 'suzuki_apps', 'chow_platform', 'onecatering'];
 
 const ProjectsSection: React.FC = () => {
     const { t } = useI18n();

@@ -10,7 +10,7 @@ return [
             'description' => 'Monolityczna platforma webowa dla polskiego rynku Suzuki, pełniąca rolę głównej strony publicznej oraz systemu wewnętrznego.',
             'details' => 'Utrzymanie i modernizacja dużego monolitu opartego na Laravelu, w tym znaczące aktualizacje PHP i frameworka. Rozbudowa i optymalizacja panelu administracyjnego, znacznie redukująca pracę manualną i usprawniająca procesy wewnętrzne.',
             'stack' => 'Laravel · PHP · Systemy administracyjne · Wydajność',
-            'image' => '',
+            'image' => '/assets/images/suzuki-pl.webp',
         ],
         'suzuki_apps' => [
             'title' => 'Moje Suzuki & Suzuki Service App',
@@ -26,7 +26,15 @@ return [
             'description' => 'Dedykowana platforma do zarządzania cateringiem dla szkół i firm cateringowych.',
             'details' => 'Administratorzy zarządzają szkołami, klasami, uczniami, menu i płatnościami. Rodzice jednym kliknięciem kontrolują harmonogram posiłków i opłaty. Kuchnie codziennie otrzymują dokładne dane do przygotowania posiłków.',
             'stack' => 'Laravel · Logika biznesowa · Płatności · Automatyzacja operacyjna',
-            'image' => '',
+            'image' => '/assets/images/onecateringkids.webp',
+        ],
+        'chow_platform' => [
+            'title' => 'Platforma cHow Retail Intelligence & System Newsletter',
+            'subtitle' => 'SaaS · Business Intelligence · Komunikacja',
+            'description' => 'Platforma promocyjna dla cHow - systemu Retail Intelligence (web + aplikacje mobilne), który zastępuje e-maile, checklisty i Excel, usprawniając zbieranie danych i komunikację w organizacjach, wraz z wewnętrznym modułowym menedżerem kampanii newsletterowych.',
+            'details' => 'Stworzyłem stronę promocyjną i system newsletterów z edytorem blokowym, segmentacją odbiorców i planowaną wysyłką.',
+            'stack' => 'Laravel · Web Development · Automatyzacja e-mail · Design modułowy · SaaS',
+            'image' => '/assets/images/chow.webp',
         ],
     ],
 ];
