@@ -10,16 +10,35 @@ import ServiceItem from '@/components/Layouts/Buttons/ServiceItem';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 import { useI18n } from '@/hooks/useI18n';
-import React from 'react';
+import React, { useState } from 'react';
 
 const HeroSection: React.FC = () => {
     const { t } = useI18n();
+    const [activeImage, setActiveImage] = useState<string>(
+        '/assets/images/pavlo.jpg',
+    );
 
     const services = [
-        { key: 'full-stack', icon: WorldIcon },
-        { key: 'backend', icon: PhpIcon },
-        { key: 'frontend', icon: ReactIcon },
+        {
+            key: 'full-stack',
+            icon: WorldIcon,
+            image: '/assets/images/website.jpg',
+        },
+        {
+            key: 'backend',
+            icon: PhpIcon,
+            image: '/assets/images/backend-image.jpg',
+        },
+        {
+            key: 'frontend',
+            icon: ReactIcon,
+            image: '/assets/images/frontend-image.jpg',
+        },
     ];
+
+    const handleServiceClick = (serviceKey: string, image: string) => {
+        setActiveImage(image);
+    };
 
     return (
         <Section className="flex min-h-[calc(100svh-3.5rem)] w-full items-center">
@@ -63,18 +82,30 @@ const HeroSection: React.FC = () => {
                     <ul className="space-y-3">
                         {services.map((service, i) => {
                             const IconComponent = service.icon;
+
                             return (
-                                <ServiceItem
+                                <div
                                     key={service.key}
-                                    icon={
-                                        <IconComponent className="me-2 h-6 w-6 opacity-60" />
+                                    onClick={() =>
+                                        handleServiceClick(
+                                            service.key,
+                                            service.image,
+                                        )
                                     }
-                                    title={t(
-                                        `hero.services.${service.key}.title`,
-                                    )}
-                                    // text={t(`hero.services.${service.key}.text`)}
-                                    delay={0.05 + i * 0.1}
-                                />
+                                    className="cursor-pointer"
+                                >
+                                    <ServiceItem
+                                        icon={
+                                            <IconComponent
+                                                className={`me-2 h-6 w-6 opacity-60`}
+                                            />
+                                        }
+                                        title={t(
+                                            `hero.services.${service.key}.title`,
+                                        )}
+                                        delay={0.05 + i * 0.1}
+                                    />
+                                </div>
                             );
                         })}
                     </ul>
@@ -96,7 +127,7 @@ const HeroSection: React.FC = () => {
 
                 {/* Right image */}
                 <HeroImage
-                    src="/assets/images/pavlo-yumi.jpg"
+                    src={activeImage}
                     alt="Hero"
                     gradientColor="var(--color-brand-500)"
                 />
