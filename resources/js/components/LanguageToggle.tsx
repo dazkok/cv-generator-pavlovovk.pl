@@ -4,9 +4,9 @@ import { router, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 const locales = [
-    { value: 'uk', label: 'UA' },
     { value: 'en', label: 'EN' },
     { value: 'pl', label: 'PL' },
+    { value: 'uk', label: 'UK' },
 ];
 
 export default function LanguageDropdown() {
