@@ -41,13 +41,13 @@ const HeroSection: React.FC = () => {
                         {t('hero.text')}
                     </Heading>
 
-                    <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                    <div className="my-8 flex flex-col gap-4 sm:flex-row">
                         <Button
                             download
                             href="/assets/pdf/CV_Pavlo_Vovk.pdf"
                             icon={<DownloadIcon />}
                         >
-                            Download CV
+                            {t('hero.cv')}
                         </Button>
 
                         <Button
@@ -55,7 +55,7 @@ const HeroSection: React.FC = () => {
                             target={'_blank'}
                             href="/assets/pdf/Letter_of_Recomendation_Pavlo_Vovk.pdf"
                         >
-                            Recommendations
+                            {t('hero.recommendation')}
                         </Button>
                     </div>
 

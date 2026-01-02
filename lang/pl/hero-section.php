@@ -4,6 +4,8 @@ return [
     'subtitle' => 'Pavlo Vovk',
     'title' => 'Full-stack developer<br/>z Krakowa',
     'text' => 'Full-stack developer tworzący niezawodne i skalowalne aplikacje webowe używane przez tysiące użytkowników.',
+    'cv' => 'Pobierz CV',
+    'recommendation' => 'List polecający',
     'services' => [
         'full-stack' => [
             'title' => 'Aplikacje webowe gotowe na produkt',

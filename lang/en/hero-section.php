@@ -4,6 +4,8 @@ return [
     'subtitle' => 'Pavlo Vovk',
     'title' => 'Software developer<br/>based in Cracow',
     'text' => 'Full-stack developer building reliable, scalable web applications used by thousands of users.',
+    'cv' => 'Download CV',
+    'recommendation' => 'Letter of Recommendation',
     'services' => [
         'full-stack' => [
             'title' => 'Product-ready Web Applications',
