@@ -14,7 +14,7 @@ const ProjectsSection: React.FC = () => {
             <Heading level="h2">{t('portfolio.title')}</Heading>
             <Heading level="subtitle">{t('portfolio.text')}</Heading>
 
-            <div className="mt-16 space-y-12">
+            <div className="lg:mt-16">
                 {PROJECT_KEYS.map((key, i) => (
                     <ProjectRow
                         key={key}
@@ -24,6 +24,7 @@ const ProjectsSection: React.FC = () => {
                         description={t(`portfolio.projects.${key}.description`)}
                         details={t(`portfolio.projects.${key}.details`)}
                         role={t(`portfolio.projects.${key}.stack`)}
+                        previewImage={t(`portfolio.projects.${key}.image`)}
                         delay={i * 0.08}
                     />
                 ))}
