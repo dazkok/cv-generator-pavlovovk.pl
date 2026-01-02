@@ -9,7 +9,7 @@ const Section: React.FC<{
         id={id}
         className={`flex min-h-[calc(100svh-3.5rem)] w-full items-center ${className}`}
     >
-        <div className="container mx-auto px-6 sm:px-8 lg:px-16">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-16 py-6 lg:py-0">
             {children}
         </div>
     </section>
