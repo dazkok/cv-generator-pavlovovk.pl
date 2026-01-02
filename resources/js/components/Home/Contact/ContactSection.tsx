@@ -6,6 +6,7 @@ import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll';
 import React, { useState } from 'react';
+import Button from '@/components/Layouts/Buttons/Button';
 
 const ContactSection: React.FC = () => {
     const { ref: headerRef, isVisible: headerVisible } =
@@ -88,13 +89,10 @@ const ContactSection: React.FC = () => {
                             className="resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm transition placeholder:text-neutral-400 focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
                             style={{ transitionDelay: '0.15s' }}
                         />
-                        <button
-                            type="submit"
-                            className="mt-2 rounded-full bg-brand-500 px-8 py-3 text-sm font-medium text-white transition hover:opacity-90 hover:shadow-lg"
-                            style={{ transitionDelay: '0.2s' }}
-                        >
+
+                        <Button type="submit" style={{ transitionDelay: '0.2s' }}>
                             Send Message
-                        </button>
+                        </Button>
                     </form>
                 </div>
 

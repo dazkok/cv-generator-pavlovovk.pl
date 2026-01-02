@@ -1,6 +1,7 @@
 import LanguageDropdown from '@/components/LanguageToggle';
 import { useI18n } from '@/hooks/useI18n';
 import ThemeToggle from './ThemeToggle';
+import React from 'react';
 
 export default function Header() {
     const { t } = useI18n();

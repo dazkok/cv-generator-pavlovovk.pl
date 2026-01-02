@@ -1,7 +1,11 @@
 import ArrowDown from '@/assets/icons/arrow-down.svg?react';
+import DownloadIcon from '@/assets/icons/download.svg?react';
+import PhpIcon from '@/assets/icons/php.svg?react';
+import ReactIcon from '@/assets/icons/react.svg?react';
 import WorldIcon from '@/assets/icons/world-www.svg?react';
 import { HeroImage } from '@/components/Home/Hero/HeroImage';
 import StatItem from '@/components/Home/Hero/StatItem';
+import Button from '@/components/Layouts/Buttons/Button';
 import ServiceItem from '@/components/Layouts/Buttons/ServiceItem';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
@@ -11,7 +15,11 @@ import React from 'react';
 const HeroSection: React.FC = () => {
     const { t } = useI18n();
 
-    const services = ['full-stack', 'backend', 'frontend'];
+    const services = [
+        { key: 'full-stack', icon: WorldIcon },
+        { key: 'backend', icon: PhpIcon },
+        { key: 'frontend', icon: ReactIcon },
+    ];
 
     return (
         <Section className="flex min-h-[calc(100svh-3.5rem)] w-full items-center">
@@ -24,24 +32,51 @@ const HeroSection: React.FC = () => {
 
                     <Heading level="h1">
                         <span
-                            dangerouslySetInnerHTML={{ __html: t('hero.title') }}
+                            dangerouslySetInnerHTML={{
+                                __html: t('hero.title'),
+                            }}
                         />
                     </Heading>
                     <Heading level="subtitle" className="mt-4">
                         {t('hero.text')}
                     </Heading>
 
+                    <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                        <Button
+                            download
+                            href="/assets/pdf/CV_Pavlo_Vovk.pdf"
+                            icon={<DownloadIcon />}
+                        >
+                            Download CV
+                        </Button>
+
+                        <Button
+                            variant="ghost"
+                            target={'_blank'}
+                            href="/assets/pdf/Letter_of_Recomendation_Pavlo_Vovk.pdf"
+                        >
+                            Recommendations
+                        </Button>
+                    </div>
+
                     {/* Services */}
                     <ul className="space-y-3">
-                        {services.map((key, i) => (
-                            <ServiceItem
-                                key={key}
-                                icon={<WorldIcon className="me-2 h-6 w-6 opacity-60" />}
-                                title={t(`hero.services.${key}.title`)}
-                                // text={t(`hero.services.${key}.text`)}
-                                delay={0.05 + i * 0.1}
-                            />
-                        ))}
+                        {services.map((service, i) => {
+                            const IconComponent = service.icon;
+                            return (
+                                <ServiceItem
+                                    key={service.key}
+                                    icon={
+                                        <IconComponent className="me-2 h-6 w-6 opacity-60" />
+                                    }
+                                    title={t(
+                                        `hero.services.${service.key}.title`,
+                                    )}
+                                    // text={t(`hero.services.${service.key}.text`)}
+                                    delay={0.05 + i * 0.1}
+                                />
+                            );
+                        })}
                     </ul>
 
                     {/* Stats */}
