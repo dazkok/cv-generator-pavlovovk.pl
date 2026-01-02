@@ -5,15 +5,17 @@ type ProjectRowProps = {
     index: string;
     title: string;
     description: string;
+    details?: string;
     role: string;
     meta?: string;
-    delay?: number; // додаємо delay для анімації
+    delay?: number;
 };
 
 const ProjectRow: React.FC<ProjectRowProps> = ({
     index,
     title,
     description,
+    details,
     role,
     meta,
     delay = 0,
@@ -23,9 +25,7 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
     return (
         <div
             ref={ref}
-            className={`group fade-up grid gap-6 py-12 md:grid-cols-12 ${
-                isVisible ? 'is-visible' : ''
-            }`}
+            className={`group fade-up grid gap-6 py-12 transition-colors duration-300 hover:bg-neutral-50/60 md:grid-cols-12 dark:hover:bg-neutral-900/40 ${isVisible ? 'is-visible' : ''} `}
             style={{ animationDelay: `${delay}s` }}
         >
             {/* Marker */}
@@ -43,9 +43,19 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
                 )}
             </div>
 
-            {/* Description */}
-            <div className="text-neutral-600 md:col-span-4 dark:text-neutral-400">
-                {description}
+            {/* Description + hover details */}
+            <div className="relative md:col-span-4">
+                {/* Main description */}
+                <p className="text-neutral-600 transition-opacity duration-300 group-hover:opacity-60 dark:text-neutral-400">
+                    {description}
+                </p>
+
+                {/* Hover details */}
+                {details && (
+                    <p className="pointer-events-none mt-2 max-h-0 translate-y-2 overflow-hidden text-sm leading-relaxed text-neutral-500 opacity-0 transition-all duration-300 delay-75 ease-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
+                        {details}
+                    </p>
+                )}
             </div>
 
             {/* Role */}

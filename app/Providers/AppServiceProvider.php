@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
             'translations' => fn() => [
                 'navigation' => trans('navigation'),
                 'hero' => trans('hero-section'),
+                'portfolio' => trans('portfolio'),
             ],
         ]);
     }
