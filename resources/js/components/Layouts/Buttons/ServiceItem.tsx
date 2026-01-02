@@ -7,7 +7,7 @@ const ServiceItem: React.FC<{
     title: string;
     href?: string;
     delay?: number;
-}> = ({ icon, title, href = '#', delay = 0 }) => {
+}> = ({ icon, title, delay = 0 }) => {
     const { ref, isVisible } = useRevealOnScroll<HTMLLIElement>();
 
     return (
@@ -17,7 +17,6 @@ const ServiceItem: React.FC<{
             style={{ animationDelay: `${delay}s` }}
         >
             <a
-                href={href}
                 className="group inline-flex items-center text-base font-medium text-neutral-700 transition-all hover:opacity-70 dark:text-neutral-300"
             >
                 {icon}
