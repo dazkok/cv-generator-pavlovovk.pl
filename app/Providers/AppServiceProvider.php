@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
                     'title' => __('home-meta.title'),
                     'description' => __('home-meta.description'),
                     'keywords' => __('home-meta.keywords'),
-                    'metaImage' => '/images/meta/portfolio-home.jpg', // OG image
+                    'metaImage' => '/assets/images/meta/portfolio-home.jpg', // OG image
                 ],
             ],
         ]);
