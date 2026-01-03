@@ -4,7 +4,8 @@ use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::post('/contact', [ContactController::class, 'store']);
+Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware('throttle:5,1');
 
 Route::group([
     'prefix' => '{locale?}',

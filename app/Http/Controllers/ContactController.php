@@ -2,24 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\DTO\ContactMessageDTO;
+use App\Http\Requests\StoreContactRequest;
+use App\Services\ContactService;
 
 class ContactController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreContactRequest $request,
+                          ContactService      $contactService)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'min:2'],
-            'email' => ['required', 'email'],
-            'message' => ['required', 'string', 'min:9999'],
-        ]);
+        $dto = new ContactMessageDTO(
+            name: $request->validated('name'),
+            email: $request->validated('email'),
+            message: $request->validated('message'),
+            ip: $request->ip(),
+            userAgent: (string)$request->userAgent(),
+        );
 
-        // mail / queue / db — пізніше
+        $contactService->handle($dto);
 
         return response()->json([
             'success' => true,
             'message' => 'Message sent successfully',
-        ]);
+        ], 201);
     }
 }

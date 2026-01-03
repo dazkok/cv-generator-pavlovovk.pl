@@ -204,7 +204,7 @@ const ContactSection: React.FC = () => {
 
                         {isSuccess && (
                             <div className="mt-4 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-600 dark:text-green-400">
-                                {t('contact.feedback.success')}
+                                {t('contact.form.feedback.success')}
                             </div>
                         )}
                     </div>
