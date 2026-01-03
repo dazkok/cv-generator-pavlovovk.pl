@@ -15,10 +15,10 @@ class BasicAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (
-            $request->getUser() !== env('SITE_USER') ||
-            $request->getPassword() !== env('SITE_PASSWORD')
-        ) {
+        if (!empty(env('SITE_USER')) && (
+                $request->getUser() !== env('SITE_USER') ||
+                $request->getPassword() !== env('SITE_PASSWORD')
+            )) {
             return response('Unauthorized', 401, [
                 'WWW-Authenticate' => 'Basic'
             ]);
