@@ -28,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
                 'portfolio' => trans('portfolio'),
                 'skills' => trans('skills'),
                 'contact' => trans('contact'),
+                'meta' => [
+                    'title' => __('home-meta.title'),
+                    'description' => __('home-meta.description'),
+                    'keywords' => __('home-meta.keywords'),
+                    'metaImage' => '/images/meta/portfolio-home.jpg', // OG image
+                ],
             ],
         ]);
     }

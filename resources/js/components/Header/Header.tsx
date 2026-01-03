@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import LanguageDropdown from '@/components/LanguageToggle';
+import LanguageDropdown from '@/components/Header/LanguageToggle';
 import { useI18n } from '@/hooks/useI18n';
 import ThemeToggle from './ThemeToggle';
 
