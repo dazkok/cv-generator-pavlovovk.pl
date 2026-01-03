@@ -6,9 +6,9 @@
 
     @php
         $locale = app()->getLocale();
-        $title = __('meta.title');
-        $description = __('meta.description');
-        $keywords = __('meta.keywords');
+        $title = __('home-meta.title');
+        $description = __('home-meta.description');
+        $keywords = __('home-meta.keywords');
         $ogImage = asset('path-to-your-og-image.jpg');
         $currentUrl = url()->current();
 
