@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::post('/contact', [ContactController::class, 'store']);
 
 Route::group([
     'prefix' => '{locale?}',

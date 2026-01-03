@@ -72,7 +72,7 @@ const SkillsSection: React.FC = () => {
             </div>
 
             {/* Capabilities */}
-            <div className="mt-16 lg:mt-24 grid gap-8 lg:gap-16 md:grid-cols-2">
+            <div className="mt-12 lg:mt-24 grid gap-8 lg:gap-16 md:grid-cols-2 text-center md:text-start">
                 {capabilities.map((item, i) => (
                     <CapabilityCard
                         key={item.key}

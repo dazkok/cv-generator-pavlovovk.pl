@@ -2,17 +2,29 @@ import GithubIcon from '@/assets/icons/github.svg?react';
 import InstagramIcon from '@/assets/icons/instagram.svg?react';
 import LinkedInIcon from '@/assets/icons/linkedin.svg?react';
 import MailIcon from '@/assets/icons/mail.svg?react';
+
+import ContactCard from '@/components/Home/Contact/ContactCard';
+import Button from '@/components/Layouts/Buttons/Button';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
+
+import axios from '@/lib/axios';
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll';
+import { router, usePage } from '@inertiajs/react';
 import React, { useState } from 'react';
-import Button from '@/components/Layouts/Buttons/Button';
+
+type FormErrors = {
+    name?: string;
+    email?: string;
+    message?: string;
+    general?: string;
+};
 
 const ContactSection: React.FC = () => {
     const { ref: headerRef, isVisible: headerVisible } =
         useRevealOnScroll<HTMLDivElement>();
     const { ref: formRef, isVisible: formVisible } =
-        useRevealOnScroll<HTMLDivElement>(); // контейнер для форми
+        useRevealOnScroll<HTMLDivElement>();
     const { ref: socialsRef, isVisible: socialsVisible } =
         useRevealOnScroll<HTMLDivElement>();
 
@@ -22,122 +34,215 @@ const ContactSection: React.FC = () => {
         message: '',
     });
 
+    const [errors, setErrors] = useState<FormErrors>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    const validate = (): boolean => {
+        const e: FormErrors = {};
+
+        if (formData.name.trim().length < 2) {
+            e.name = 'Name must be at least 2 characters.';
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            e.email = 'Invalid email.';
+        }
+
+        if (formData.message.trim().length < 10) {
+            e.message = 'Message must be at least 10 characters.';
+        }
+
+        setErrors(e);
+        return Object.keys(e).length === 0;
+    };
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        alert('Message sent!');
-        setFormData({ name: '', email: '', message: '' });
+        setErrors({});
+        setIsSuccess(false);
+
+        if (!validate()) return;
+
+        try {
+            setIsSubmitting(true);
+
+            await axios.post('/contact', formData);
+
+            setIsSuccess(true);
+            setFormData({ name: '', email: '', message: '' });
+        } catch (error: any) {
+            if (error.response?.status === 422) {
+                setErrors(error.response.data.errors);
+            } else {
+                setErrors({
+                    general: 'Something went wrong. Try again later.',
+                });
+            }
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
         <Section id="contact" className="bg-background">
             <div className="mx-auto max-w-2xl text-center">
-                {/* Заголовок */}
+                {/* Title */}
                 <div
                     ref={headerRef}
                     className={`fade-up transition-opacity duration-700 ${
                         headerVisible ? 'is-visible' : ''
                     }`}
-                    style={{ transitionDelay: '0s' }}
                 >
                     <Heading level="h2">Let’s work together</Heading>
                     <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-                        I’m open to discussing product work, long-term collaboration, or selective freelance projects.
+                        I’m open to discussing product work, long-term
+                        collaboration, or selective freelance projects.
                     </p>
                 </div>
 
-                {/* Форма з stagger */}
+                {/* Form */}
                 <div
                     ref={formRef}
-                    className={`fade-up mt-10 transition-opacity duration-700 ${
+                    className={`fade-up mt-12 transition-opacity duration-700 ${
                         formVisible ? 'is-visible' : ''
                     }`}
                 >
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Your Name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                            className="rounded-xl border border-border bg-card px-4 py-3 text-sm transition placeholder:text-neutral-400 focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
-                            style={{ transitionDelay: '0.05s' }}
-                        />
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Your Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                            className="rounded-xl border border-border bg-card px-4 py-3 text-sm transition placeholder:text-neutral-400 focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
-                            style={{ transitionDelay: '0.1s' }}
-                        />
-                        <textarea
-                            name="message"
-                            placeholder="Your Message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            required
-                            rows={5}
-                            className="resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm transition placeholder:text-neutral-400 focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
-                            style={{ transitionDelay: '0.15s' }}
-                        />
+                    <div className="rounded-3xl border border-border bg-card/70 p-6 shadow-sm backdrop-blur sm:p-8">
+                        {/* Header */}
+                        <div className="mb-6 text-left">
+                            <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                                Send me a message
+                            </h3>
+                            <p className="mt-1 text-sm text-neutral-500">
+                                Tell me briefly about your idea, project, or
+                                role.
+                            </p>
+                        </div>
 
-                        <Button type="submit" style={{ transitionDelay: '0.2s' }}>
-                            Send Message
-                        </Button>
-                    </form>
+                        <div className="my-6 flex items-center gap-3">
+                            <div className="h-px flex-1 bg-border" />
+                            <span className="text-xs uppercase tracking-wide text-neutral-400">
+                                Contact form
+                            </span>
+                            <div className="h-px flex-1 bg-border" />
+                        </div>
+
+                        <form
+                            onSubmit={handleSubmit}
+                            className="flex flex-col gap-4"
+                        >
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Your Name"
+                                value={formData.name}
+                                onChange={handleChange}
+
+                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring focus:ring-brand-200/50"
+                            />
+                            {errors.name && (
+                                <p className="text-xs text-red-500">
+                                    {errors.name}
+                                </p>
+                            )}
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Your Email"
+                                value={formData.email}
+                                onChange={handleChange}
+
+                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring focus:ring-brand-200/50"
+                            />
+                            {errors.email && (
+                                <p className="text-xs text-red-500">
+                                    {errors.email}
+                                </p>
+                            )}
+
+                            <textarea
+                                name="message"
+                                placeholder="Your Message"
+                                rows={5}
+                                value={formData.message}
+                                onChange={handleChange}
+
+                                className="resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring focus:ring-brand-200/50"
+                            />
+                            {errors.message && (
+                                <p className="text-xs text-red-500">
+                                    {errors.message}
+                                </p>
+                            )}
+
+                            <Button type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? 'Sending…' : 'Send Message'}
+                            </Button>
+                        </form>
+
+                        {errors.message && (
+                            <div className="mt-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400">
+                                {errors.message}
+                            </div>
+                        )}
+
+                        {isSuccess && (
+                            <div className="mt-4 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-600 dark:text-green-400">
+                                Thanks! Your message has been sent successfully.
+                            </div>
+                        )}
+                    </div>
                 </div>
 
-                {/* Соцмережі */}
+                <p className="my-10 text-sm text-neutral-500">
+                    Prefer email or LinkedIn? I usually reply within 24 hours.
+                </p>
+
+                {/* Socials */}
                 <div
                     ref={socialsRef}
-                    className={`fade-up mt-8 flex justify-center gap-6 text-neutral-500 transition-opacity duration-700 dark:text-neutral-400 ${
+                    className={`fade-up mt-10 grid gap-4 sm:grid-cols-2 ${
                         socialsVisible ? 'is-visible' : ''
                     }`}
-                    style={{ transitionDelay: '0.25s' }}
                 >
-                    <a
+                    <ContactCard
+                        icon={<MailIcon className="h-5 w-5" />}
+                        label="Email"
+                        value="dazkok@gmail.com"
                         href="mailto:dazkok@gmail.com"
-                        aria-label="Email"
-                        className="transition hover:text-brand-500"
-                    >
-                        <MailIcon className="h-5 w-5" />
-                    </a>
-                    <a
+                    />
+
+                    <ContactCard
+                        icon={<LinkedInIcon className="h-5 w-5" />}
+                        label="LinkedIn"
+                        value="pavlo-vovk"
                         href="https://www.linkedin.com/in/pavlo-vovk-37437824b/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn"
-                        className="transition hover:text-brand-500"
-                    >
-                        <LinkedInIcon className="h-5 w-5" />
-                    </a>
-                    <a
+                    />
+
+                    <ContactCard
+                        icon={<GithubIcon className="h-5 w-5" />}
+                        label="GitHub"
+                        value="github.com/dazkok"
                         href="https://github.com/dazkok"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
-                        className="transition hover:text-brand-500"
-                    >
-                        <GithubIcon className="h-5 w-5" />
-                    </a>
-                    <a
+                    />
+
+                    <ContactCard
+                        icon={<InstagramIcon className="h-5 w-5" />}
+                        label="Instagram"
+                        value="@x_xxost"
                         href="https://instagram.com/x_xxost"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram"
-                        className="transition hover:text-brand-500"
-                    >
-                        <InstagramIcon className="h-5 w-5" />
-                    </a>
+                    />
                 </div>
             </div>
         </Section>
