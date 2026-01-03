@@ -87,7 +87,7 @@ const ContactSection: React.FC = () => {
                 setErrors(error.response.data.errors);
             } else {
                 setErrors({
-                    general: t('contact.feedback.error'),
+                    general: t('contact.form.feedback.error'),
                 });
             }
         } finally {
