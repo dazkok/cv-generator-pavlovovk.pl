@@ -12,11 +12,14 @@ class ContactController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'min:2'],
             'email' => ['required', 'email'],
-            'message' => ['required', 'string', 'min:10'],
+            'message' => ['required', 'string', 'min:9999'],
         ]);
 
         // mail / queue / db — пізніше
 
-        return back()->with('success', true);
+        return response()->json([
+            'success' => true,
+            'message' => 'Message sent successfully',
+        ]);
     }
 }

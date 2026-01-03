@@ -8,9 +8,8 @@ import Button from '@/components/Layouts/Buttons/Button';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 
-import axios from '@/lib/axios';
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll';
-import { router, usePage } from '@inertiajs/react';
+import axios from '@/lib/axios';
 import React, { useState } from 'react';
 
 type FormErrors = {
@@ -131,7 +130,7 @@ const ContactSection: React.FC = () => {
 
                         <div className="my-6 flex items-center gap-3">
                             <div className="h-px flex-1 bg-border" />
-                            <span className="text-xs uppercase tracking-wide text-neutral-400">
+                            <span className="text-xs tracking-wide text-neutral-400 uppercase">
                                 Contact form
                             </span>
                             <div className="h-px flex-1 bg-border" />
@@ -147,13 +146,12 @@ const ContactSection: React.FC = () => {
                                 placeholder="Your Name"
                                 value={formData.name}
                                 onChange={handleChange}
-
-                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring focus:ring-brand-200/50"
+                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
                             />
                             {errors.name && (
-                                <p className="text-xs text-red-500">
+                                <span className="text-xs text-red-500">
                                     {errors.name}
-                                </p>
+                                </span>
                             )}
 
                             <input
@@ -162,13 +160,12 @@ const ContactSection: React.FC = () => {
                                 placeholder="Your Email"
                                 value={formData.email}
                                 onChange={handleChange}
-
-                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring focus:ring-brand-200/50"
+                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
                             />
                             {errors.email && (
-                                <p className="text-xs text-red-500">
+                                <span className="text-xs text-red-500">
                                     {errors.email}
-                                </p>
+                                </span>
                             )}
 
                             <textarea
@@ -177,13 +174,12 @@ const ContactSection: React.FC = () => {
                                 rows={5}
                                 value={formData.message}
                                 onChange={handleChange}
-
-                                className="resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:outline-none focus:ring focus:ring-brand-200/50"
+                                className="resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
                             />
                             {errors.message && (
-                                <p className="text-xs text-red-500">
+                                <span className="text-xs text-red-500">
                                     {errors.message}
-                                </p>
+                                </span>
                             )}
 
                             <Button type="submit" disabled={isSubmitting}>
@@ -191,9 +187,9 @@ const ContactSection: React.FC = () => {
                             </Button>
                         </form>
 
-                        {errors.message && (
+                        {errors.general && (
                             <div className="mt-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400">
-                                {errors.message}
+                                {errors.general}
                             </div>
                         )}
 
