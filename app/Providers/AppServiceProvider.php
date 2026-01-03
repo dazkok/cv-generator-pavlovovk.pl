@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
                 'hero' => trans('hero-section'),
                 'portfolio' => trans('portfolio'),
                 'skills' => trans('skills'),
+                'contact' => trans('contact'),
             ],
         ]);
     }

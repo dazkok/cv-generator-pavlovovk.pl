@@ -8,6 +8,7 @@ import Button from '@/components/Layouts/Buttons/Button';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 
+import { useI18n } from '@/hooks/useI18n';
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll';
 import axios from '@/lib/axios';
 import React, { useState } from 'react';
@@ -27,6 +28,8 @@ const ContactSection: React.FC = () => {
     const { ref: socialsRef, isVisible: socialsVisible } =
         useRevealOnScroll<HTMLDivElement>();
 
+    const { t } = useI18n();
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -41,15 +44,15 @@ const ContactSection: React.FC = () => {
         const e: FormErrors = {};
 
         if (formData.name.trim().length < 2) {
-            e.name = 'Name must be at least 2 characters.';
+            e.name = t('contact.form.fields.name.error');
         }
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            e.email = 'Invalid email.';
+            e.email = t('contact.form.fields.email.error');
         }
 
         if (formData.message.trim().length < 10) {
-            e.message = 'Message must be at least 10 characters.';
+            e.message = t('contact.form.fields.message.error');
         }
 
         setErrors(e);
@@ -84,7 +87,7 @@ const ContactSection: React.FC = () => {
                 setErrors(error.response.data.errors);
             } else {
                 setErrors({
-                    general: 'Something went wrong. Try again later.',
+                    general: t('contact.feedback.error'),
                 });
             }
         } finally {
@@ -102,11 +105,10 @@ const ContactSection: React.FC = () => {
                         headerVisible ? 'is-visible' : ''
                     }`}
                 >
-                    <Heading level="h2">Let’s work together</Heading>
-                    <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-                        I’m open to discussing product work, long-term
-                        collaboration, or selective freelance projects.
-                    </p>
+                    <Heading level="h2">{t('contact.title')}</Heading>
+                    <div className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+                        {t('contact.subtitle')}
+                    </div>
                 </div>
 
                 {/* Form */}
@@ -120,18 +122,17 @@ const ContactSection: React.FC = () => {
                         {/* Header */}
                         <div className="mb-6 text-left">
                             <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                                Send me a message
+                                {t('contact.form.title')}
                             </h3>
                             <p className="mt-1 text-sm text-neutral-500">
-                                Tell me briefly about your idea, project, or
-                                role.
+                                {t('contact.form.description')}
                             </p>
                         </div>
 
                         <div className="my-6 flex items-center gap-3">
                             <div className="h-px flex-1 bg-border" />
                             <span className="text-xs tracking-wide text-neutral-400 uppercase">
-                                Contact form
+                                {t('contact.form.divider')}
                             </span>
                             <div className="h-px flex-1 bg-border" />
                         </div>
@@ -143,7 +144,9 @@ const ContactSection: React.FC = () => {
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Your Name"
+                                placeholder={t(
+                                    'contact.form.fields.name.label',
+                                )}
                                 value={formData.name}
                                 onChange={handleChange}
                                 className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
@@ -157,7 +160,9 @@ const ContactSection: React.FC = () => {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Your Email"
+                                placeholder={t(
+                                    'contact.form.fields.email.label',
+                                )}
                                 value={formData.email}
                                 onChange={handleChange}
                                 className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
@@ -170,7 +175,9 @@ const ContactSection: React.FC = () => {
 
                             <textarea
                                 name="message"
-                                placeholder="Your Message"
+                                placeholder={t(
+                                    'contact.form.fields.message.label',
+                                )}
                                 rows={5}
                                 value={formData.message}
                                 onChange={handleChange}
@@ -183,7 +190,9 @@ const ContactSection: React.FC = () => {
                             )}
 
                             <Button type="submit" disabled={isSubmitting}>
-                                {isSubmitting ? 'Sending…' : 'Send Message'}
+                                {isSubmitting
+                                    ? t('contact.form.actions.submitting')
+                                    : t('contact.form.actions.submit')}
                             </Button>
                         </form>
 
@@ -195,14 +204,14 @@ const ContactSection: React.FC = () => {
 
                         {isSuccess && (
                             <div className="mt-4 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-600 dark:text-green-400">
-                                Thanks! Your message has been sent successfully.
+                                {t('contact.feedback.success')}
                             </div>
                         )}
                     </div>
                 </div>
 
                 <p className="my-10 text-sm text-neutral-500">
-                    Prefer email or LinkedIn? I usually reply within 24 hours.
+                    {t('contact.footer')}
                 </p>
 
                 {/* Socials */}
