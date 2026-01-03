@@ -22,17 +22,17 @@ const HeroSection: React.FC = () => {
         {
             key: 'full-stack',
             icon: WorldIcon,
-            image: '/assets/images/website.jpg',
+            image: '/assets/images/hero/website.jpg',
         },
         {
             key: 'backend',
             icon: PhpIcon,
-            image: '/assets/images/backend-image.jpg',
+            image: '/assets/images/hero/backend.jpg',
         },
         {
             key: 'frontend',
             icon: ReactIcon,
-            image: '/assets/images/frontend-image.jpg',
+            image: '/assets/images/hero/frontend.jpg',
         },
     ];
 
