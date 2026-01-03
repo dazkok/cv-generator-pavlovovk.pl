@@ -4,6 +4,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    @php
+        $locale = app()->getLocale();
+        $title = __('meta.title');
+        $description = __('meta.description');
+        $keywords = __('meta.keywords');
+        $ogImage = asset('path-to-your-og-image.jpg');
+        $currentUrl = url()->current();
+
+        $ogLocale = $locale === 'uk' ? 'uk_UA' : ($locale === 'en' ? 'en_US' : 'pl_PL');
+    @endphp
+
+    <title>{{ $title }}</title>
+    <meta name="title" content="{{ $title }}">
+    <meta name="description" content="{{ $description }}">
+    <meta name="keywords" content="{{ $keywords }}">
+    <meta name="author" content="Pavlo Vovk">
+    <meta name="robots" content="{{ app()->isProduction() ? 'all' : 'noindex' }}">
+    <link rel="canonical" href="{{ $currentUrl }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $currentUrl }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:locale" content="{{ $ogLocale }}">
+    <meta property="og:site_name" content="Pavlo Vovk">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ $currentUrl }}">
+    <meta property="twitter:title" content="{{ $title }}">
+    <meta property="twitter:description" content="{{ $description }}">
+    <meta property="twitter:image" content="{{ $ogImage }}">
+
     @if(config('gtm.gtm_key'))
         <!-- Google Tag Manager -->
         <script>(function(w, d, s, l, i) {
