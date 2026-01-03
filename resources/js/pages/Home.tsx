@@ -16,10 +16,6 @@ export default function Home() {
             <ProjectsSection />
             <SkillsSection />
             <ContactSection />
-            {/*<Resume />*/}
-            {/*<Testimonial />*/}
-            {/*<PopularClients />*/}
-            {/*<ContactForm />*/}
         </>
     );
 }

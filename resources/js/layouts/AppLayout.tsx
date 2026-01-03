@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer';
-import Header from '@/components/Header/index';
+import Header from '@/components/Header/Header';
 import { PropsWithChildren } from 'react';
 
 export default function AppLayout({ children }: PropsWithChildren) {
