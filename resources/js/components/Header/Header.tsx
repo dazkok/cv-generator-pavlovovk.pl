@@ -61,13 +61,19 @@ export default function Header({ onLogoClick }: HeaderProps) {
                         {/* Desktop nav */}
                         <nav className="hidden items-center gap-8 md:flex">
                             {NAV_ITEMS.map((item) => (
-                                <a
+                                <button
                                     key={item}
-                                    href={`#${item}`}
+                                    onClick={() =>
+                                        document
+                                            .getElementById(item)
+                                            ?.scrollIntoView({
+                                                behavior: 'smooth',
+                                            })
+                                    }
                                     className="text-sm font-medium text-neutral-700 transition-opacity hover:opacity-70 dark:text-neutral-300"
                                 >
                                     {t(`navigation.${item}`)}
-                                </a>
+                                </button>
                             ))}
                         </nav>
 
@@ -118,14 +124,18 @@ export default function Header({ onLogoClick }: HeaderProps) {
                 {/* Nav */}
                 <nav className="flex flex-1 flex-col gap-1 px-4 pt-4">
                     {NAV_ITEMS.map((item) => (
-                        <a
+                        <button
                             key={item}
-                            href={`#${item}`}
-                            onClick={() => setIsOpen(false)}
-                            className="rounded-xl px-4 py-3 text-base font-medium text-neutral-800 transition-colors hover:bg-neutral-200/60 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
+                            onClick={() => {
+                                document.getElementById(item)?.scrollIntoView({
+                                    behavior: 'smooth',
+                                });
+                                setIsOpen(false);
+                            }}
+                            className="rounded-xl px-4 py-3 text-left text-base font-medium text-neutral-800 transition-colors hover:bg-neutral-200/60 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
                         >
                             {t(`navigation.${item}`)}
-                        </a>
+                        </button>
                     ))}
                 </nav>
 
