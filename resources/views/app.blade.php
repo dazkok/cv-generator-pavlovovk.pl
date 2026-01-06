@@ -38,21 +38,39 @@
     <meta property="twitter:image" content="{{ $ogImage }}">
 
     @if(config('gtm.gtm_key'))
-        <!-- Google Tag Manager -->
-        <script>(function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+                analytics_storage: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied'
+            });
+
+            const hasConsent = localStorage.getItem('cookieConsent') === 'accepted';
+            if (hasConsent) {
+                loadGA4();
+            }
+
+            function loadGA4() {
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL';
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-6PQLCN9TKL');
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted',
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted'
                 });
-                const f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', '{{ config('gtm.gtm_key') }}');</script>
-        <!-- End Google Tag Manager -->
+            }
+        </script>
     @endif
 
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
@@ -97,15 +115,6 @@
     @inertiaHead
 </head>
 <body class="min-h-screen overflow-x-hidden">
-
-@if(config('gtm.gtm_key'))
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVNVH4Z6"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-@endif
 
 @inertia
 </body>

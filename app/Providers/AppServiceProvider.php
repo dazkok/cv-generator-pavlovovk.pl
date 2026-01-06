@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
                 'portfolio' => trans('portfolio'),
                 'skills' => trans('skills'),
                 'contact' => trans('contact'),
+                'privacy' => trans('privacy'),
                 'meta' => [
                     'title' => __('home-meta.title'),
                     'description' => __('home-meta.description'),
