@@ -63,6 +63,30 @@
         }
     </style>
 
+    <!-- Google Analytics -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+        });
+
+        if(localStorage.getItem('cookieConsent') === 'accepted') {
+            const script = document.createElement('script');
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL";
+            script.async = true;
+            script.onload = () => {
+                gtag('js', new Date());
+                gtag('config', 'G-6PQLCN9TKL');
+            };
+            document.head.appendChild(script);
+        }
+    </script>
+
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
