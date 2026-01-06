@@ -40,7 +40,11 @@
     @if(config('gtm.gtm_key'))
         <script>
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
             gtag('consent', 'default', {
                 analytics_storage: 'denied',
                 ad_storage: 'denied',
@@ -53,14 +57,19 @@
                 loadGA4();
             }
 
-            function loadGA4() {
+            // Make loadGA4 globally accessible
+            window.loadGA4 = function() {
                 const script = document.createElement('script');
                 script.async = true;
                 script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL';
                 document.head.appendChild(script);
 
                 window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
+
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+
                 gtag('js', new Date());
                 gtag('config', 'G-6PQLCN9TKL');
                 gtag('consent', 'update', {
@@ -69,7 +78,7 @@
                     'ad_user_data': 'granted',
                     'ad_personalization': 'granted'
                 });
-            }
+            };
         </script>
     @endif
 

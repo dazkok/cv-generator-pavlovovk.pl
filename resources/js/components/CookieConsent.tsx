@@ -18,16 +18,51 @@ export function CookieConsent() {
         }
     }, []);
 
+    const loadGA4 = () => {
+        // Load the GA4 script
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL';
+        document.head.appendChild(script);
+
+        // Initialize dataLayer and gtag
+        window.dataLayer = window.dataLayer || [];
+        const gtag: Window['gtag'] = (...args) => {
+            window.dataLayer?.push(args);
+        };
+
+        // Set gtag as a global function
+        window.gtag = gtag;
+
+        // Initialize GA4
+        gtag('js', new Date());
+        gtag('config', 'G-6PQLCN9TKL');
+        gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted'
+        });
+    };
+
     const acceptCookies = () => {
         localStorage.setItem('cookieConsent', 'accepted');
+
+        // Check if gtag is already defined
         if (window.gtag) {
+            // Update consent if gtag already exists
             window.gtag('consent', 'update', {
                 analytics_storage: 'granted',
                 ad_storage: 'granted',
                 ad_user_data: 'granted',
-                ad_personalization: 'granted',
+                ad_personalization: 'granted'
             });
+            window.gtag('config', 'G-6PQLCN9TKL');
+        } else {
+            // Load GA4 from scratch
+            loadGA4();
         }
+
         setIsVisible(false);
         setTimeout(() => setShowBanner(false), 200);
     };
