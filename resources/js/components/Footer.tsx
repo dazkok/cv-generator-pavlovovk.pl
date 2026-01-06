@@ -1,7 +1,7 @@
 import { useI18n } from '@/hooks/useI18n';
 
 export default function Footer() {
-    const { locale } = useI18n();
+    const { t, locale } = useI18n();
 
     return (
         <footer className="mt-24 border-t border-zinc-200 dark:border-zinc-800">
@@ -13,7 +13,7 @@ export default function Footer() {
                         href={`/${locale}/privacy`}
                         className="underline transition hover:text-zinc-700 dark:hover:text-zinc-300"
                     >
-                        Privacy Policy
+                        {t('privacy.title')}
                     </a>
 
                     <span>Laravel · React · Inertia</span>
