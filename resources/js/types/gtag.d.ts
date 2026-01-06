@@ -1,10 +1,3 @@
-export type GtagCommand =
-    | ['consent', 'default', ConsentOptions]
-    | ['consent', 'update', ConsentOptions]
-    | ['js', Date]
-    | ['config', string, Record<string, unknown>?]
-    | [string, ...unknown[]];
-
 export interface ConsentOptions {
     analytics_storage?: 'granted' | 'denied';
     ad_storage?: 'granted' | 'denied';
@@ -12,9 +5,15 @@ export interface ConsentOptions {
     ad_personalization?: 'granted' | 'denied';
 }
 
+export type GtagArgs =
+    | ['js', Date]
+    | ['config', string, Record<string, unknown>?]
+    | ['consent', 'default' | 'update', ConsentOptions]
+    | [string, ...unknown[]];
+
 declare global {
     interface Window {
-        dataLayer?: GtagCommand[];
-        gtag?: (...args: GtagCommand) => void;
+        dataLayer?: unknown[];
+        gtag?: (...args: GtagArgs) => void;
     }
 }
