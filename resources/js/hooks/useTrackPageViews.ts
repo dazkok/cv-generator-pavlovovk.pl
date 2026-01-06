@@ -9,9 +9,7 @@ export function useTrackPageViews() {
         if (localStorage.getItem('cookieConsent') !== 'accepted') return;
 
         gtagSafe(() => {
-            window.gtag?.('config', 'G-6PQLCN9TKL', {
-                page_path: page.url,
-            });
+            window.gtag?.('config', 'G-6PQLCN9TKL', { page_path: page.url });
         });
     }, [page.url]);
 }

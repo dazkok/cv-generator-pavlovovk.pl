@@ -13,11 +13,10 @@ export function loadGA4(): Promise<void> {
             window.gtag = (...args: any[]) => window.dataLayer!.push(args);
 
             window.gtag('js', new Date());
-            window.gtag('config', 'G-6PQLCN9TKL', { send_page_view: false }); // disable automatic page_view
+            window.gtag('config', 'G-6PQLCN9TKL', { send_page_view: false });
 
             gaLoaded = true;
 
-            // run queued calls
             gaQueue.forEach((fn) => fn());
             gaQueue = [];
 
@@ -28,9 +27,6 @@ export function loadGA4(): Promise<void> {
 }
 
 export function gtagSafe(callback: () => void) {
-    if (gaLoaded) {
-        callback();
-    } else {
-        gaQueue.push(callback);
-    }
+    if (gaLoaded) callback();
+    else gaQueue.push(callback);
 }
