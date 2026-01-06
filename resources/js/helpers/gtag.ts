@@ -3,10 +3,7 @@ let gaQueue: (() => void)[] = [];
 
 export function loadGA4(): Promise<void> {
     return new Promise((resolve) => {
-        if (gaLoaded) {
-            resolve();
-            return;
-        }
+        if (gaLoaded) return resolve();
 
         const script = document.createElement('script');
         script.async = true;
@@ -16,11 +13,11 @@ export function loadGA4(): Promise<void> {
             window.gtag = (...args: any[]) => window.dataLayer!.push(args);
 
             window.gtag('js', new Date());
-            window.gtag('config', 'G-6PQLCN9TKL');
+            window.gtag('config', 'G-6PQLCN9TKL', { send_page_view: false }); // disable automatic page_view
 
             gaLoaded = true;
 
-            // Виконуємо чергу
+            // run queued calls
             gaQueue.forEach((fn) => fn());
             gaQueue = [];
 
