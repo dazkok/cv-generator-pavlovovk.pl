@@ -37,19 +37,6 @@
     <meta property="twitter:description" content="{{ $description }}">
     <meta property="twitter:image" content="{{ $ogImage }}">
 
-    @if(config('gtm.gtm_key'))
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('consent', 'default', {
-                analytics_storage: 'denied',
-                ad_storage: 'denied',
-                ad_user_data: 'denied',
-                ad_personalization: 'denied'
-            });
-        </script>
-    @endif
-
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
     <script>
         (function() {
