@@ -40,45 +40,13 @@
     @if(config('gtm.gtm_key'))
         <script>
             window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
+            function gtag(){dataLayer.push(arguments);}
             gtag('consent', 'default', {
                 analytics_storage: 'denied',
                 ad_storage: 'denied',
                 ad_user_data: 'denied',
                 ad_personalization: 'denied'
             });
-
-            const hasConsent = localStorage.getItem('cookieConsent') === 'accepted';
-            if (hasConsent) {
-                loadGA4();
-            }
-
-            // Make loadGA4 globally accessible
-            window.loadGA4 = function() {
-                const script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL';
-                document.head.appendChild(script);
-
-                window.dataLayer = window.dataLayer || [];
-
-                function gtag() {
-                    dataLayer.push(arguments);
-                }
-
-                gtag('js', new Date());
-                gtag('config', 'G-6PQLCN9TKL');
-                gtag('consent', 'update', {
-                    'analytics_storage': 'granted',
-                    'ad_storage': 'granted',
-                    'ad_user_data': 'granted',
-                    'ad_personalization': 'granted'
-                });
-            };
         </script>
     @endif
 
