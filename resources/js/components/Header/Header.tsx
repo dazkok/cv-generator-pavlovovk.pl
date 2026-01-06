@@ -12,19 +12,38 @@ import InstagramIcon from '@/assets/icons/instagram.svg?react';
 import LinkedInIcon from '@/assets/icons/linkedin.svg?react';
 import MailIcon from '@/assets/icons/mail.svg?react';
 
-interface HeaderProps {
-    onLogoClick?: () => void;
-}
-
 const NAV_ITEMS = ['about', 'portfolio', 'skills', 'contact'] as const;
 
-export default function Header({ onLogoClick }: HeaderProps) {
+export default function Header() {
     const { t } = useI18n();
     const [isOpen, setIsOpen] = useState(false);
+    const isHome = typeof window !== 'undefined' && /^\/(uk|en|pl)?\/?$/.test(window.location.pathname);
 
     const handleLogoClick = () => {
-        if (onLogoClick) onLogoClick();
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        const localePrefix = window.location.pathname.match(/^\/(uk|en|pl)/)?.[0] ?? '';
+        if (isHome) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            window.location.href = `${localePrefix}`;
+        }
+        setIsOpen(false);
+    };
+
+    const handleNavClick = (item: string) => {
+        const targetId = item;
+        const header = document.querySelector('header');
+        const headerHeight = header?.clientHeight ?? 0;
+
+        if (isHome) {
+            const el = document.getElementById(targetId);
+            if (el) {
+                const top = el.offsetTop - headerHeight;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        } else {
+            const localePrefix = window.location.pathname.match(/^\/(uk|en|pl)/)?.[0] ?? '';
+            window.location.href = `${localePrefix}/?scroll=${targetId}`;
+        }
 
         setIsOpen(false);
     };
@@ -63,13 +82,7 @@ export default function Header({ onLogoClick }: HeaderProps) {
                             {NAV_ITEMS.map((item) => (
                                 <button
                                     key={item}
-                                    onClick={() =>
-                                        document
-                                            .getElementById(item)
-                                            ?.scrollIntoView({
-                                                behavior: 'smooth',
-                                            })
-                                    }
+                                    onClick={() => handleNavClick(item)}
                                     className="text-sm font-medium text-neutral-700 transition-opacity hover:opacity-70 dark:text-neutral-300"
                                 >
                                     {t(`navigation.${item}`)}
@@ -126,12 +139,7 @@ export default function Header({ onLogoClick }: HeaderProps) {
                     {NAV_ITEMS.map((item) => (
                         <button
                             key={item}
-                            onClick={() => {
-                                document.getElementById(item)?.scrollIntoView({
-                                    behavior: 'smooth',
-                                });
-                                setIsOpen(false);
-                            }}
+                            onClick={() => handleNavClick(item)}
                             className="rounded-xl px-4 py-3 text-left text-base font-medium text-neutral-800 transition-colors hover:bg-neutral-200/60 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
                         >
                             {t(`navigation.${item}`)}

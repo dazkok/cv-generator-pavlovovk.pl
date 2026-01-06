@@ -41,7 +41,7 @@ const HeroSection: React.FC = () => {
     };
 
     return (
-        <Section className="flex min-h-[calc(100svh-3.5rem)] w-full items-center">
+        <Section id={'about'} className="flex min-h-[calc(100svh-3.5rem)] w-full items-center">
             <div className="grid items-center gap-y-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-x-24">
                 {/* Left content */}
                 <div className="space-y-6">

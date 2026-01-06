@@ -8,7 +8,7 @@ export function CookieConsent() {
             ? localStorage.getItem('cookieConsent') === null
             : false,
     );
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
 
     const acceptCookies = () => {
         localStorage.setItem('cookieConsent', 'accepted');
@@ -26,7 +26,7 @@ export function CookieConsent() {
                     {' '}
                     {t('privacy.popup-text')}{' '}
                     <a
-                        href="/privacy"
+                        href={`/${locale}/privacy`}
                         className="font-medium text-primary hover:underline"
                     >
                         {' '}
