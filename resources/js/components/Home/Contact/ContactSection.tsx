@@ -5,15 +5,15 @@ import MailIcon from '@/assets/icons/mail.svg?react';
 import { AxiosError } from 'axios';
 
 import ContactCard from '@/components/Home/Contact/ContactCard';
-import Button from '@/components/UI/Buttons/Button';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
+import Button from '@/components/UI/Buttons/Button';
 
+import Input from '@/components/UI/Input/Input';
 import { useI18n } from '@/hooks/useI18n';
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll';
 import axios from '@/lib/axios';
 import React, { useState } from 'react';
-import Input from '@/components/UI/Input/Input';
 
 type FormErrors = {
     name?: string;
@@ -32,11 +32,18 @@ const ContactSection: React.FC = () => {
 
     const { t } = useI18n();
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         name: '',
         email: '',
         message: '',
-    });
+        website: '',
+        nickname: '',
+        fax_number: '',
+        agreements: '',
+        text_message: '',
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
 
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -82,6 +89,19 @@ const ContactSection: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const hasHoneypotValue =
+            formData.website ||
+            formData.nickname ||
+            formData.fax_number ||
+            formData.agreements ||
+            formData.text_message;
+
+        if (hasHoneypotValue) {
+            axios.post('/contact', formData).catch(() => {});
+            return;
+        }
+
         setErrors({});
         setIsSuccess(false);
 
@@ -93,11 +113,13 @@ const ContactSection: React.FC = () => {
             await axios.post('/contact', formData);
 
             setIsSuccess(true);
-            setFormData({ name: '', email: '', message: '' });
+            setFormData(initialFormData);
         } catch (error: unknown) {
             const axiosError = error as AxiosError;
             if (axiosError.response?.status === 422) {
-                setErrors((axiosError.response.data as { errors: FormErrors }).errors);
+                setErrors(
+                    (axiosError.response.data as { errors: FormErrors }).errors,
+                );
             } else {
                 setErrors({
                     general: t('contact.form.feedback.error'),
@@ -154,13 +176,56 @@ const ContactSection: React.FC = () => {
                             onSubmit={handleSubmit}
                             className="flex flex-col gap-4"
                         >
+                            <div className="sr-only" aria-hidden="true">
+                                <input
+                                    type="text"
+                                    name="website"
+                                    value={formData.website}
+                                    onChange={handleChange}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                />
+                                <input
+                                    type="text"
+                                    name="nickname"
+                                    value={formData.nickname}
+                                    onChange={handleChange}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                />
+                                <input
+                                    type="text"
+                                    name="fax_number"
+                                    value={formData.fax_number}
+                                    onChange={handleChange}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                />
+                                <input
+                                    type="text"
+                                    name="agreements"
+                                    value={formData.agreements}
+                                    onChange={handleChange}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                />
+                                <textarea
+                                    name="text_message"
+                                    value={formData.text_message}
+                                    onChange={handleChange}
+                                    tabIndex={-1}
+                                />
+                            </div>
+
                             <Input
                                 id="name"
                                 name="name"
                                 type="text"
                                 value={formData.name}
                                 onChange={handleChange}
-                                placeholder={t('contact.form.fields.name.label')}
+                                placeholder={t(
+                                    'contact.form.fields.name.label',
+                                )}
                                 label={t('contact.form.fields.name.label')}
                                 error={errors.name}
                                 // required
@@ -172,7 +237,9 @@ const ContactSection: React.FC = () => {
                                 type="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                placeholder={t('contact.form.fields.email.label')}
+                                placeholder={t(
+                                    'contact.form.fields.email.label',
+                                )}
                                 label={t('contact.form.fields.email.label')}
                                 error={errors.email}
                                 // required
@@ -184,7 +251,9 @@ const ContactSection: React.FC = () => {
                                 type="textarea"
                                 value={formData.message}
                                 onChange={handleChange}
-                                placeholder={t('contact.form.fields.message.label')}
+                                placeholder={t(
+                                    'contact.form.fields.message.label',
+                                )}
                                 label={t('contact.form.fields.message.label')}
                                 error={errors.message}
                                 // required
