@@ -84,7 +84,7 @@ const HeroSection: React.FC = () => {
                             const IconComponent = service.icon;
 
                             return (
-                                <div
+                                <ul
                                     key={service.key}
                                     onClick={() =>
                                         handleServiceClick(
@@ -105,7 +105,7 @@ const HeroSection: React.FC = () => {
                                         )}
                                         delay={0.05 + i * 0.1}
                                     />
-                                </div>
+                                </ul>
                             );
                         })}
                     </ul>
