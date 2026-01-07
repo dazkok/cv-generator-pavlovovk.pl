@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Contracts\Cv\CvPdfGeneratorInterface;
+use App\Contracts\Cv\CvRenderServiceInterface;
+use App\Contracts\Cv\CvRepositoryInterface;
+use App\Repositories\Cv\CvRepository;
+use App\Services\Cv\CvRenderService;
+use App\Services\Cv\DomPdfGenerator;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
 
@@ -12,7 +18,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            CvRepositoryInterface::class,
+            CvRepository::class
+        );
+
+        $this->app->bind(
+            CvRenderServiceInterface::class,
+            CvRenderService::class
+        );
+
+        $this->app->bind(
+            CvPdfGeneratorInterface::class,
+            DomPdfGenerator::class
+        );
     }
 
     /**

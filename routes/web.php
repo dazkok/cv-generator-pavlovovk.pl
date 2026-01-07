@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CvPdfController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware('throttle:5,1');
+
+Route::get('/cv/{id}/pdf', [CvPdfController::class, 'show']);
 
 Route::group([
     'prefix' => '{locale?}',
