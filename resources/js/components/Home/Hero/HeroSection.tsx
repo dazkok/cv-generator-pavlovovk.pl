@@ -5,8 +5,8 @@ import ReactIcon from '@/assets/icons/react.svg?react';
 import WorldIcon from '@/assets/icons/world-www.svg?react';
 import { HeroImage } from '@/components/Home/Hero/HeroImage';
 import StatItem from '@/components/Home/Hero/StatItem';
-import Button from '@/components/Layouts/Buttons/Button';
-import ServiceItem from '@/components/Layouts/Buttons/ServiceItem';
+import Button from '@/components/UI/Buttons/Button';
+import ServiceItem from '@/components/Home/Hero/ServiceItem';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 import { useI18n } from '@/hooks/useI18n';
@@ -131,13 +131,6 @@ const HeroSection: React.FC = () => {
                     alt="Hero"
                     gradientColor="var(--color-brand-500)"
                 />
-            </div>
-
-            {/* Scroll down */}
-            <div className="hidden md:block mt-5 opacity-40 transition hover:opacity-70 lg:mt-10">
-                <a href="#portfolio">
-                    <ArrowDown className={'h-6 w-6'} />
-                </a>
             </div>
         </Section>
     );

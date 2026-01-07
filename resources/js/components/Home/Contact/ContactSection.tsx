@@ -5,7 +5,7 @@ import MailIcon from '@/assets/icons/mail.svg?react';
 import { AxiosError } from 'axios';
 
 import ContactCard from '@/components/Home/Contact/ContactCard';
-import Button from '@/components/Layouts/Buttons/Button';
+import Button from '@/components/UI/Buttons/Button';
 import Heading from '@/components/Layouts/Heading';
 import Section from '@/components/Layouts/Section';
 
@@ -13,6 +13,7 @@ import { useI18n } from '@/hooks/useI18n';
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll';
 import axios from '@/lib/axios';
 import React, { useState } from 'react';
+import Input from '@/components/UI/Input/Input';
 
 type FormErrors = {
     name?: string;
@@ -63,10 +64,20 @@ const ContactSection: React.FC = () => {
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
+        const { name, value } = e.target;
+
         setFormData((prev) => ({
             ...prev,
-            [e.target.name]: e.target.value,
+            [name]: value,
         }));
+
+        setErrors((prev) => {
+            if (!prev[name as keyof FormErrors]) return prev;
+
+            const next = { ...prev };
+            delete next[name as keyof FormErrors];
+            return next;
+        });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -143,53 +154,41 @@ const ContactSection: React.FC = () => {
                             onSubmit={handleSubmit}
                             className="flex flex-col gap-4"
                         >
-                            <input
-                                type="text"
+                            <Input
+                                id="name"
                                 name="name"
-                                placeholder={t(
-                                    'contact.form.fields.name.label',
-                                )}
+                                type="text"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
+                                placeholder={t('contact.form.fields.name.label')}
+                                label={t('contact.form.fields.name.label')}
+                                error={errors.name}
+                                // required
                             />
-                            {errors.name && (
-                                <span className="text-xs text-red-500">
-                                    {errors.name}
-                                </span>
-                            )}
 
-                            <input
-                                type="email"
+                            <Input
+                                id="email"
                                 name="email"
-                                placeholder={t(
-                                    'contact.form.fields.email.label',
-                                )}
+                                type="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
+                                placeholder={t('contact.form.fields.email.label')}
+                                label={t('contact.form.fields.email.label')}
+                                error={errors.email}
+                                // required
                             />
-                            {errors.email && (
-                                <span className="text-xs text-red-500">
-                                    {errors.email}
-                                </span>
-                            )}
 
-                            <textarea
+                            <Input
+                                id="message"
                                 name="message"
-                                placeholder={t(
-                                    'contact.form.fields.message.label',
-                                )}
-                                rows={5}
+                                type="textarea"
                                 value={formData.message}
                                 onChange={handleChange}
-                                className="resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm focus:border-brand-500 focus:ring focus:ring-brand-200/50 focus:outline-none"
+                                placeholder={t('contact.form.fields.message.label')}
+                                label={t('contact.form.fields.message.label')}
+                                error={errors.message}
+                                // required
                             />
-                            {errors.message && (
-                                <span className="text-xs text-red-500">
-                                    {errors.message}
-                                </span>
-                            )}
 
                             <Button type="submit" disabled={isSubmitting}>
                                 {isSubmitting

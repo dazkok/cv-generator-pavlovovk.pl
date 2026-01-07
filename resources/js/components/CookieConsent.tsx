@@ -1,4 +1,4 @@
-import Button from '@/components/Layouts/Buttons/Button';
+import Button from '@/components/UI/Buttons/Button';
 import { useI18n } from '@/hooks/useI18n';
 import { useState } from 'react';
 
