@@ -2,6 +2,7 @@ import GithubIcon from '@/assets/icons/github.svg?react';
 import InstagramIcon from '@/assets/icons/instagram.svg?react';
 import LinkedInIcon from '@/assets/icons/linkedin.svg?react';
 import MailIcon from '@/assets/icons/mail.svg?react';
+import { AxiosError } from 'axios';
 
 import ContactCard from '@/components/Home/Contact/ContactCard';
 import Button from '@/components/Layouts/Buttons/Button';
@@ -82,9 +83,10 @@ const ContactSection: React.FC = () => {
 
             setIsSuccess(true);
             setFormData({ name: '', email: '', message: '' });
-        } catch (error: any) {
-            if (error.response?.status === 422) {
-                setErrors(error.response.data.errors);
+        } catch (error: unknown) {
+            const axiosError = error as AxiosError;
+            if (axiosError.response?.status === 422) {
+                setErrors((axiosError.response.data as { errors: FormErrors }).errors);
             } else {
                 setErrors({
                     general: t('contact.form.feedback.error'),
