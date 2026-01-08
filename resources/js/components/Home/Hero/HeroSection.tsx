@@ -63,7 +63,7 @@ const HeroSection: React.FC = () => {
                     <div className="my-8 flex flex-col gap-4 sm:flex-row">
                         <Button
                             download
-                            href="/assets/pdf/CV_Pavlo_Vovk.pdf"
+                            href="/assets/pdf/Pavlo Vovk - CV.pdf"
                             icon={<DownloadIcon />}
                         >
                             {t('hero.cv')}
