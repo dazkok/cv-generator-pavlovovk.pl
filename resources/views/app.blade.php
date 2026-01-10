@@ -66,7 +66,10 @@
     <!-- Google Analytics -->
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
         gtag('consent', 'default', {
             analytics_storage: 'denied',
@@ -75,13 +78,20 @@
             ad_personalization: 'denied'
         });
 
-        if(localStorage.getItem('cookieConsent') === 'accepted') {
+        if (localStorage.getItem('cookieConsent') === 'accepted') {
             const script = document.createElement('script');
-            script.src = "https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL";
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6PQLCN9TKL';
             script.async = true;
             script.onload = () => {
                 gtag('js', new Date());
-                gtag('config', 'G-6PQLCN9TKL');
+
+                gtag('consent', 'update', {
+                    analytics_storage: 'granted'
+                });
+
+                gtag('config', 'G-6PQLCN9TKL', {
+                    send_page_view: true
+                });
             };
             document.head.appendChild(script);
         }
