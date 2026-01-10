@@ -1,4 +1,3 @@
-import ArrowDown from '@/assets/icons/arrow-down.svg?react';
 import DownloadIcon from '@/assets/icons/download.svg?react';
 import PhpIcon from '@/assets/icons/php.svg?react';
 import ReactIcon from '@/assets/icons/react.svg?react';
@@ -36,9 +35,9 @@ const HeroSection: React.FC = () => {
         },
     ];
 
-    const handleServiceClick = (serviceKey: string, image: string) => {
-        setActiveImage(image);
-    };
+    // const handleServiceClick = (serviceKey: string, image: string) => {
+    //     setActiveImage(image);
+    // };
 
     return (
         <Section id={'about'} className="flex min-h-[calc(100svh-3.5rem)] w-full items-center">
@@ -86,13 +85,13 @@ const HeroSection: React.FC = () => {
                             return (
                                 <ul
                                     key={service.key}
-                                    onClick={() =>
-                                        handleServiceClick(
-                                            service.key,
-                                            service.image,
-                                        )
-                                    }
-                                    className="cursor-pointer"
+                                    // onClick={() =>
+                                    //     handleServiceClick(
+                                    //         service.key,
+                                    //         service.image,
+                                    //     )
+                                    // }
+                                    className=""
                                 >
                                     <ServiceItem
                                         icon={
