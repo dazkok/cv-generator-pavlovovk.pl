@@ -137,26 +137,6 @@
             line-height: 1.3;
         }
 
-        /* === LAYOUT === */
-
-        .content-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .left-col {
-            width: 68%;
-            padding-right: 18px;
-            vertical-align: top;
-        }
-
-        .right-col {
-            width: 32%;
-            padding-left: 18px;
-            vertical-align: top;
-            border-left: 1px solid #e5e7eb;
-        }
-
         /* === ITEMS === */
 
         .item {
@@ -178,6 +158,37 @@
             font-weight: 600;
             margin-bottom: 2px;
             color: #111827;
+        }
+
+        /* === SIMPLE JOB DESCRIPTION LISTS === */
+        .job-description {
+            font-size: 10.8px;
+            line-height: 1.55;
+        }
+
+        .job-description ul {
+            margin: 6px 0 0 0;
+            padding-left: 16px;
+        }
+
+        .job-description li {
+            margin-bottom: 3px;
+            line-height: 1.55;
+        }
+
+        /* Clean bullet style */
+        .job-description ul {
+            list-style-type: disc;
+        }
+
+        /* Nested list styling */
+        .job-description ul ul {
+            margin: 4px 0 4px 0;
+            list-style-type: circle;
+        }
+
+        .job-description ul ul ul {
+            list-style-type: square;
         }
 
         /* === LISTS === */
@@ -252,87 +263,78 @@
     </table>
 </div>
 
-<table class="content-table">
-    <tr>
-        {{-- LEFT COLUMN --}}
-        <td class="left-col">
+<div>
+    {{-- SUMMARY --}}
+    @if($sections->contains('section', 'summary') && $profile->summary)
+        <p class="summary">{{ $profile->summary }}</p>
+    @endif
 
-            {{-- SUMMARY --}}
-            @if($sections->contains('section', 'summary') && $profile->summary)
-                <p class="summary">{{ $profile->summary }}</p>
-            @endif
+    {{-- SKILLS --}}
+    @if($sections->contains('section', 'skills'))
+        <h2 style="margin-top: 0;">Skills</h2>
 
-            {{-- EXPERIENCE --}}
-            @if($sections->contains('section', 'experience'))
-                <h2>Experience</h2>
+        @foreach($cv->skills->groupBy('category') as $category => $skills)
+            <div class="skill-group">
+                <strong>{{ $category }}</strong>
+                {{ $skills->pluck('name')->implode(', ') }}
+            </div>
+        @endforeach
+    @endif
 
-                @foreach($cv->workExperiences as $job)
-                    <div class="item">
-                        <h3>{{ $job->company }}, {{ $job->city }} — {{ $job->position }}</h3>
-                        <div class="item-meta">
-                            {{ $job->start_date->format('M Y') }} –
-                            {{ $job->is_current ? 'Present' : $job->end_date?->format('M Y') }}
-                        </div>
+    {{-- EXPERIENCE --}}
+    @if($sections->contains('section', 'experience'))
+        <h2>Experience</h2>
 
-                        @if($job->description)
-                            <p>{!! nl2br(e($job->description)) !!}</p>
-                        @endif
+        @foreach($cv->workExperiences as $job)
+            <div class="item">
+                <h3>{{ $job->company }}, {{ $job->city }} — {{ $job->position }}</h3>
+                <div class="item-meta">
+                    {{ $job->start_date->format('M Y') }} –
+                    {{ $job->is_current ? 'Present' : $job->end_date?->format('M Y') }}
+                </div>
+
+                @if($job->description)
+                    <div class="job-description">{!! $job->description !!}</div>
+                @endif
+            </div>
+        @endforeach
+    @endif
+
+    {{-- EDUCATION --}}
+    @if($sections->contains('section', 'education'))
+        <h2>Education</h2>
+
+        @foreach($cv->educations->groupBy('institution') as $institution => $educations)
+            <div class="item">
+                <h3>{{ $institution }}</h3>
+                @foreach($educations as $edu)
+                    <div class="item-meta">
+                        {{ $edu->date_string }}
                     </div>
+                    @if($edu->description)
+                        <p>{{ $edu->description }}</p>
+                    @endif
                 @endforeach
-            @endif
+            </div>
+        @endforeach
+    @endif
 
-            {{-- EDUCATION --}}
-            @if($sections->contains('section', 'education'))
-                <h2>Education</h2>
+    {{-- LANGUAGES --}}
+    @if($sections->contains('section', 'languages'))
+        <h2>Languages</h2>
+        <ul class="clean">
+            @foreach($cv->languages as $language)
+                <li>{{ $language->name }} ({{ $language->proficiency }})</li>
+            @endforeach
+        </ul>
+    @endif
 
-                @foreach($cv->educations->groupBy('institution') as $institution => $educations)
-                    <div class="item">
-                        <h3>{{ $institution }}</h3>
-                        @foreach($educations as $edu)
-                            <div class="item-meta">
-                                {{ $edu->date_string }}
-                            </div>
-                            @if($edu->description)
-                                <p>{{ $edu->description }}</p>
-                            @endif
-                        @endforeach
-                    </div>
-                @endforeach
-            @endif
-        </td>
-
-        {{-- RIGHT COLUMN --}}
-        <td class="right-col">
-            {{-- SKILLS --}}
-            @if($sections->contains('section', 'skills'))
-                <h2 style="margin-top: 0;">Skills</h2>
-
-                @foreach($cv->skills->groupBy('category') as $category => $skills)
-                    <div class="skill-group">
-                        <strong>{{ $category }}</strong>
-                        {{ $skills->pluck('name')->implode(', ') }}
-                    </div>
-                @endforeach
-            @endif
-
-            {{-- LANGUAGES --}}
-            @if($sections->contains('section', 'languages'))
-                <h2>Languages</h2>
-                <ul class="clean">
-                    @foreach($cv->languages as $language)
-                        <li>{{ $language->name }} ({{ $language->proficiency }})</li>
-                    @endforeach
-                </ul>
-            @endif
-
-            {{-- HOBBIES --}}
-            @if($sections->contains('section', 'hobbies'))
-                <h2>Hobbies</h2>
-                <p>{{ $cv->hobbies->pluck('name')->implode(', ') }}</p>
-            @endif
-        </td>
-    </tr>
-</table>
+    {{-- HOBBIES --}}
+    @if($sections->contains('section', 'hobbies'))
+        <h2>Hobbies</h2>
+        <p>{{ $cv->hobbies->pluck('name')->implode(', ') }}</p>
+    @endif
+</div>
 
 </body>
 </html>
