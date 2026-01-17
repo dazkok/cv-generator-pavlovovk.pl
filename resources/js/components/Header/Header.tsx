@@ -12,7 +12,7 @@ import InstagramIcon from '@/assets/icons/instagram.svg?react';
 import LinkedInIcon from '@/assets/icons/linkedin.svg?react';
 import MailIcon from '@/assets/icons/mail.svg?react';
 
-const NAV_ITEMS = ['about', 'portfolio', 'skills', 'contact'] as const;
+const NAV_ITEMS = ['about', 'experience', 'portfolio', 'skills', 'contact'] as const;
 
 export default function Header() {
     const { t } = useI18n();

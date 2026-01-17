@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ContactSection from '@/components/Home/Contact/ContactSection';
+import ExperienceSection from '@/components/Home/Expirience/ExpirienceSection';
 import HeroSection from '@/components/Home/Hero/HeroSection';
 import ProjectsSection from '@/components/Home/Projects/ProjectsSection';
 import SkillsSection from '@/components/Home/Skills/SkillsSection';
@@ -10,6 +11,7 @@ export default function Home() {
     return (
         <>
             <HeroSection />
+            <ExperienceSection />
             <ProjectsSection />
             <SkillsSection />
             <ContactSection />

@@ -44,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
             'translations' => fn() => [
                 'navigation' => trans('navigation'),
                 'hero' => trans('hero-section'),
+                'experience' => trans('experience'),
                 'portfolio' => trans('portfolio'),
                 'skills' => trans('skills'),
                 'contact' => trans('contact'),
