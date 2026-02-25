@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $cv->locale ?? 'en' }}">
 <head>
     <meta charset="utf-8">
     <title>{{ $profile->first_name }} {{ $profile->last_name }} - CV</title>
@@ -33,11 +33,10 @@
             font-size: 11.5px;
             margin: 20px 0 8px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
             color: #374151;
             border-bottom: 1px solid #e5e7eb;
             padding-bottom: 5px;
+            text-transform: none;
         }
 
         h3 {
@@ -248,15 +247,15 @@
                 @endif
 
                 @if($profile->linkedin)
-                    <a href="{{ $profile->linkedin }}">LinkedIn</a>
+                    <a href="{{ $profile->linkedin }}">{{ __('cv.linkedin') }}</a>
                 @endif
 
                 @if($profile->github)
-                    <a href="{{ $profile->github }}">Github</a>
+                    <a href="{{ $profile->github }}">{{ __('cv.github') }}</a>
                 @endif
 
                 @if($profile->instagram)
-                    <a href="{{ $profile->instagram }}">Instagram</a>
+                    <a href="{{ $profile->instagram }}">{{ __('cv.instagram') }}</a>
                 @endif
             </td>
         </tr>
@@ -271,7 +270,7 @@
 
     {{-- SKILLS --}}
     @if($sections->contains('section', 'skills'))
-        <h2 style="margin-top: 0;">Skills</h2>
+        <h2 style="margin-top: 0;">{{ __('cv.skills') }}</h2>
 
         @foreach($cv->skills->groupBy('category') as $category => $skills)
             <div class="skill-group">
@@ -283,14 +282,14 @@
 
     {{-- EXPERIENCE --}}
     @if($sections->contains('section', 'experience'))
-        <h2>Experience</h2>
+        <h2>{{ __('cv.experience') }}</h2>
 
         @foreach($cv->workExperiences as $job)
             <div class="item">
                 <h3>{{ $job->company }}, {{ $job->city }} — {{ $job->position }}</h3>
                 <div class="item-meta">
-                    {{ $job->start_date->format('M Y') }} –
-                    {{ $job->is_current ? 'Present' : $job->end_date?->format('M Y') }}
+                    {{ $job->start_date->translatedFormat('M Y') }} –
+                    {{ $job->is_current ? __('cv.present') : ($job->end_date?->translatedFormat('M Y')) }}
                 </div>
 
                 @if($job->description)
@@ -302,7 +301,7 @@
 
     {{-- EDUCATION --}}
     @if($sections->contains('section', 'education'))
-        <h2>Education</h2>
+        <h2>{{ __('cv.education') }}</h2>
 
         @foreach($cv->educations->groupBy('institution') as $institution => $educations)
             <div class="item">
@@ -321,7 +320,7 @@
 
     {{-- LANGUAGES --}}
     @if($sections->contains('section', 'languages'))
-        <h2>Languages</h2>
+        <h2>{{ __('cv.languages') }}</h2>
         <ul class="clean">
             @foreach($cv->languages as $language)
                 <li>{{ $language->name }} ({{ $language->proficiency }})</li>
@@ -331,7 +330,7 @@
 
     {{-- HOBBIES --}}
     @if($sections->contains('section', 'hobbies'))
-        <h2>Hobbies</h2>
+        <h2>{{ __('cv.hobbies') }}</h2>
         <p>{{ $cv->hobbies->pluck('name')->implode(', ') }}</p>
     @endif
 </div>
